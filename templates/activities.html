@@ -1,0 +1,40 @@
+
+
+{% extends "main_template.html" %}
+
+
+<!-- Fill in the Middle template -->
+{% block middle %}
+
+<div>
+
+  <!-- Use a loop to render all the activities -->
+  {% for activity in activity_list %}
+
+  <!-- Each Activity is a Table -->
+  <table border="1" style="margin-bottom: 10px;">
+
+    <tr>
+      <td>Activity Name: {{ activity.name }} </td>
+      <td>Type: {{ activity.type }} </td>
+    </tr>
+
+    <tr>
+      <td>Borough: {{ activity.borough }} </td>
+      <td>Address: {{ activity.address }} </td>
+    </tr>
+
+    <tr>
+      <td>Map: {{ activity.map_link }} </td>
+    </tr>
+    
+  </table>
+
+  
+
+  {% endfor %}
+
+</div>
+
+{% endblock %}
+

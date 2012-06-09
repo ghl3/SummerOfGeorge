@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+
+<!--
+
+This is an HTML TEMPLATE
+
+It takes several variables and bulids
+a html page out of them:
+
+VARIABLES:
+
+- title : A string representing the title 
+- stylesheet : A string representing the stylesheet file
+
+
+BLOCKS:
+
+- head : Any additional head blocks (full HTML)
+- header : The main body header
+- middle
+- right
+- footer
+- analytics
+
+-->
+
+
+<html>
+
+  <head>
+
+    <title>{{ title }}</title>    
+
+
+    <meta name="keywords" content="spontaneous symmetry, spontaneoussymmetry, george lewis, Higgs, ATLAS, CERN, Statistics, physics, quark" >
+    <link rel="shortcut icon" href="/favicon.ico" >
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+
+    <!-- Include the stylesheet: -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css" media="screen">
+
+    {% block head %}
+    {% endblock %}
+
+  </head>
+
+  <body>
+
+    {% block header %}
+
+    <div id="header">
+      Summer of George
+    </div>
+
+    <div id="navebar" >
+      <a href="/"> HOME</a> | <a href="/activities">ACTIVITIES</a>  | <a href="/map">MAP</a> 
+    </div>
+    
+    {% endblock %}
+
+    <!-- Add default variable options: -->
+    <?php
+       if(! Isset($middle) ) $middle = "midcolumn.inc";
+       if(! Isset($right) )  $right  = "rightcolumn.inc";
+       ?>
+
+    <div class="midsection">
+
+      <div class="midcol">
+	{% block middle %}
+	{% endblock %}
+      </div>
+
+      <div class="rightcol">
+
+	<div id="rightColumn">
+	  <img src="static/images/GeorgeThumbsUp.jpeg" alt="George" style="border:.5px solid black;">
+	</div>
+
+	<div class="caption" >
+	  Brought to you by the great mind of George.  We should all thank god that we know him and have access to his dimensia.
+	</div>
+
+      </div>
+
+      <div class="bar">
+	<p>&nbsp;</p>
+      </div>
+
+    </div>
+    
+
+    {% block footer %}
+    <div id="footer">
+      Written and maintained by George Herbert Lewis
+      <br>
+    </div>
+    {% endblock %}
+	          
+
+
+    {% block analytics %}
+    <script type="text/javascript">
+      
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-19418654-1']);
+      _gaq.push(['_trackPageview']);
+      
+      (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+      
+    </script>
+    {% endblock %}
+
+  </body>
+
+
+</html>
