@@ -37,36 +37,23 @@
     </fieldset>
   </form>
 
+  Number of Activities to Show:
+  <select id="num_activities">
+    <option value="10">10</option>
+    <option value="20">20</option>
+    <option value="50">50</option>
+    <option value="100">100</option>
+  </select>
+  <br>
+
   <button id="SubmitActivity" > Submit Activity </button>
-  
+  <button id="RefreshActivityList" > Refresh </button>
 
-  <!-- Use a loop to render all the activities -->
-  {% for activity in activity_list %}
+  <div id="activity_list" style="margin-top: 20px;">
+    <!-- Use the activity_list template -->
+    {% include 'activity_list.html' %}
+  </div>
 
-  <!-- Each Activity is a Table -->
-  <table border="1" style="margin-bottom: 10px;">
-
-    <tr>
-      <td>Activity Name: {{ activity.activity_name }} </td>
-      <td>Type: {{ activity.type }} </td>
-    </tr>
-
-    <tr>
-      <td>Borough: {{ activity.borough }} </td>
-      <td>Address: {{ activity.address }} </td>
-    </tr>
-
-    <tr>
-      <td>Map: {{ activity.map_link }} </td>
-    </tr>
-
-    <tr>
-      <td>Comment: {{ activity.comment }} </td>
-    </tr>
-    
-  </table>
-
-  {% endfor %}
 
 </div>
 

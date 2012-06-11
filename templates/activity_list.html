@@ -1,0 +1,14 @@
+
+
+    {% for activity in activity_list %}
+
+    <table border="1" style="margin-bottom: 10px; width: 250px;">
+      <tr> <td> <b>Activity Name:</b> {{ activity.activity_name }} </td> </tr>
+      <tr> <td> <b>Type:</b> {{ activity.type }} </td> </tr>
+      <tr> <td> <b>Borough:</b> {{ activity.borough }} </td>  </tr>
+      <tr> <td> <b>Address:</b> {{ activity.address }} </td> </tr>
+      <tr> <td> <b>Map:</b> {{ activity.map_link }} </td> </tr>
+      <tr> <td> <b>Comment:</b> {{ activity.comment }} </td> </tr>
+    </table>
+
+    {% endfor %}

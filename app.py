@@ -23,6 +23,7 @@ def index():
 
 @app.route('/activities')
 def activities():
+
     return render_template('activities.html', title="ActivitiesOfGeorge", 
                            activity_list=getActivityList())
 
@@ -30,6 +31,18 @@ def activities():
 @app.route('/map')
 def map():
     return render_template('map.html', title="MapOfGeorge")
+
+
+@app.route('/RefreshActivityList', methods=['GET', 'POST'])
+def RefreshActivityList( ):
+    """ Render the html activity list and return
+
+    """
+    num_activities = int(request.form['num_activities'])
+    activity_list = getActivityList(num_activities)
+    activity_list_html =  render_template("activity_list.html", 
+                                          activity_list=activity_list)
+    return jsonify( success="success", html=activity_list_html)
 
 
 @app.route('/SubmitActivity', methods=['GET', 'POST'])
@@ -42,7 +55,7 @@ def SubmitActivity():
 
     if request.method != 'POST':
         print "SubmitActivity() - ERROR: Expected POST http request"
-        return jsonify(result="error")
+        return jsonify(success="error")
 
     # Get the serialized activity JSON object
     # from the request
@@ -50,17 +63,17 @@ def SubmitActivity():
 
     if activity == None:
         print "SubmitActivity() - ERROR: Input activity is 'None'"
-        return jsonify(result="error")
+        return jsonify(success="error")
 
     try:
         addActivityToDatabase(activity)
     except:
         print "SubmitActivity() - Caught exception in addActivityToDatabase"
-        return jsonify(result="error")
+        return jsonify(success="error")
 
     print "SubmitActivity() - Success"
 
-    return jsonify(result="success")
+    return jsonify(success="success")
 
 
 def connectToDatabase():
@@ -121,8 +134,9 @@ def getActivityList( num_activities=10 ):
     """
     db = connectToDatabase()
     activities = db['activities']
-    activity_list = activities.find().limit( num_activities );
+    activity_list = activities.find().limit( num_activities ).sort("_id", -1);
     return activity_list
+
 
 
 if __name__ == '__main__':
