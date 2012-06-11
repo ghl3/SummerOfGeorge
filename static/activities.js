@@ -17,8 +17,24 @@ $(document).ready(function() {
 
 	var ActivityForm = $('#ActivityForm');
 	
-	var ActivityJSON = ActivityForm.serialize();
-	//var ActivityJSON = JSON.stringify(ActivityForm.serializeArray());
+	// var ActivityJSON = ActivityForm.serialize();
+
+	// Make an (oddly) encoded dictionary out
+	// of the FORM
+	//var ActivityArrayString = JSON.stringify(ActivityForm.serializeArray());
+	var ActivityArray = ActivityForm.serializeArray();
+
+	// Create a javascript dict object out
+	// of that encoded dict
+	var ActivityJSON = {};
+	for (i in ActivityArray) {
+	    console.log( ActivityArray[i] );
+	    ActivityJSON[ActivityArray[i].name] = ActivityArray[i].value
+	}
+	console.log( JSON.stringify(ActivityJSON) );
+	ActivityJSON = JSON.stringify( ActivityJSON );
+	
+
 
 	//var ActivityJSON = $('#ActivityForm').serialize();
 

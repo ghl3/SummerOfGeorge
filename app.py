@@ -38,19 +38,25 @@ def SubmitActivity():
 
     """
     
-    print "Submit Activity"
+    print "Submit Activity using method: ", request.method
 
-
+    """
     if request.method != 'POST':
         print "SubmitActivity() - ERROR: Expected POST http request"
         return jsonify(result="error")
+    """
 
     print "Request: ", request 
     #print "jsonify: ", jsonify(**request.json)
     print "json: ", request.json
     print "form: ", request.form['activity']
+    print "json loads: ", json.loads( request.form['activity'] )
+    '''
     print "get: ", request.args.get('activity')
     print "get str: ", request.args.get('activity', type=str)
+    print "json loads: ", json.loads( request.form['activity'])
+    print "json dumps: ", json.dumps( request.form['activity'])
+    '''
     # Get the serialized activity JSON object
     # from the request
 
@@ -59,7 +65,9 @@ def SubmitActivity():
 
     #activity = simplejson.loads(request.form)[0]
     #activity = json.dumps(request.form['activity'] )
-    activity = json.dumps(request.form['activity'] )
+    #activity = json.dumps(request.form['activity'] )
+    
+    activity = json.loads( request.form['activity'] )
 
     print "SubmitActivity() - Recieved activity:", activity
 
@@ -72,6 +80,8 @@ def SubmitActivity():
     except:
         print "SubmitActivity() - Caught exception in addActivityToDatabase"
         return jsonify(result="error")
+
+    print "SubmitActivity() - Success"
 
     return jsonify(result="success")
 
@@ -100,13 +110,19 @@ def addActivityToDatabase( activity ):
 
     """
 
-    print "addActivityToDatabase() - Adding Activity:", activity
+    print "addActivityToDatabase() - Adding Activity:", activity, activity.__class__.__name__
 
     try:
         db = connectToDatabase()
     except:
         print "addActivityToDatabase() - Error: Failed to connect to database"
         raise
+
+
+    # Check if the 'activities' collection exists:
+    if not 'activities' in db.collection_names():
+        print "addActivityToDatabase() - ERROR: 'activities' collection doesn't exist"
+        raise Exception("Collection Doesn't Exist in Database")
 
     try:
         activities = db['activities']
@@ -115,7 +131,8 @@ def addActivityToDatabase( activity ):
         raise
 
     try:
-        activities.insert( activity )
+        #activities.insert( activity )
+        activities.save( activity )
     except:
         print "addActivityToDatabase() - Error: Failed to add activity to database"
         raise
