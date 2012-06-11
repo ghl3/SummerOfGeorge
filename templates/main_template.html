@@ -64,13 +64,7 @@ BLOCKS:
     
     {% endblock %}
 
-    <!-- Add default variable options: -->
-    <?php
-       if(! Isset($middle) ) $middle = "midcolumn.inc";
-       if(! Isset($right) )  $right  = "rightcolumn.inc";
-       ?>
-
-    <div class="midsection">
+    <div class="mainsection">
 
       <div class="midcol">
 	{% block middle %}
@@ -89,10 +83,11 @@ BLOCKS:
 
       </div>
 
+<!--
       <div class="bar">
 	<p>&nbsp;</p>
       </div>
-
+-->
     </div>
     
 
@@ -104,7 +99,7 @@ BLOCKS:
     {% endblock %}
 	          
 
-
+<!--
     {% block analytics %}
     <script type="text/javascript">
       
@@ -120,6 +115,7 @@ BLOCKS:
       
     </script>
     {% endblock %}
+-->
 
   </body>
 

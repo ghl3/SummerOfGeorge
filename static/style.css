@@ -7,7 +7,7 @@ body {
        line-height: 180%;
        }
 
-html, body {  height: 100% }
+html, body {  height: 95% }
 
 .map {  
        width: 100%;
@@ -102,16 +102,16 @@ ul {
       }
 
 
-.midsection {
+.mainsection {
               width: 900px;
               margin-left: auto ;
               margin-right: auto ;
               border: 1px solid black;
               border-bottom-width: 1px;
               height: auto;
-              min-height: 100%;
+              padding-bottom: 30px;
+              min-height: 90%;
               }
-
 
 .midcol
 {
@@ -119,25 +119,6 @@ ul {
   margin-left: 1%;
   margin-right: 5%;
   float: left;
-
-  }
-
-.centeredcol
-{
-  margin-left:auto;
-  margin-right:auto;
-  width: 60%;
-  margin-left: auto;
-  margin-right: auto;
-
-  }
-
-.centralcol
-{
-  width: 90%;
-  margin: auto;
-
-
   }
 
 
@@ -168,7 +149,7 @@ ul {
 
             }
 
-
+/*
 .bar {  width: 100%;
        content: ".";
        display: block;
@@ -176,7 +157,7 @@ ul {
        clear: both;
        visibility:  hidden;
        }
-
+*/
 
 img.center { 
              display: block;
@@ -207,6 +188,8 @@ a:link { color: #696; text-decoration: none }
 a:visited { color: #699; text-decoration: none }
 a:hover { color: #c93; text-decoration: underline }
 a:active { color: #900; text-decoration: underline; background-color: transparent }  
+
+
 
 
 /* Start Form Here */
