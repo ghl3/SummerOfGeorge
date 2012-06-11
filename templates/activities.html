@@ -18,10 +18,10 @@
 
       <legend>Add an activity:</legend>
 
-      <label  class="required" accesskey="f">Activity Name: </label>
+      <label class="required" accesskey="f">Activity Name: </label>
       <input type="text" id="activity_name" name="activity_name" tabindex="1" value="" title="activity name"><br>
 
-      <label  class="required" accesskey="l">Type:  </label>
+      <label class="required" accesskey="l">Type:  </label>
       <input type="text" id="type" name="type" tabindex="2" title="type"><br>
       
       <label accesskey="e">Borough: </label>
@@ -30,8 +30,8 @@
       <label accesskey="e">Address: </label>
       <input type="text" id="address" name="address" tabindex="3" title="address"><br>
 
-      <label  class="required" accesskey="e">Comment: </label>
-      <textarea  name="message"  id="msg"  rows="5" style="text-align: left" onKeyDown="limitText(this.form.msg,this.form.countdown,140);" 
+      <label accesskey="e">Comment: </label>
+      <textarea  name="comment"  id="comment"  rows="5" style="text-align: left" onKeyDown="limitText(this.form.msg,this.form.countdown,140);" 
 		 cols="30"  onKeyUp="limitText(this.form.msg,this.form.countdown,140);" > </textarea> 
 
     </fieldset>
@@ -47,7 +47,7 @@
   <table border="1" style="margin-bottom: 10px;">
 
     <tr>
-      <td>Activity Name: {{ activity.name }} </td>
+      <td>Activity Name: {{ activity.activity_name }} </td>
       <td>Type: {{ activity.type }} </td>
     </tr>
 
@@ -58,6 +58,10 @@
 
     <tr>
       <td>Map: {{ activity.map_link }} </td>
+    </tr>
+
+    <tr>
+      <td>Comment: {{ activity.comment }} </td>
     </tr>
     
   </table>

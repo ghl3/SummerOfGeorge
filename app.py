@@ -24,7 +24,7 @@ def index():
 @app.route('/activities')
 def activities():
     return render_template('activities.html', title="ActivitiesOfGeorge", 
-                           activity_list=activity_list())
+                           activity_list=getActivityList())
 
 
 @app.route('/map')
@@ -38,38 +38,15 @@ def SubmitActivity():
 
     """
     
-    print "Submit Activity using method: ", request.method
+    print "SubmitActivity() - Begin"
 
-    """
     if request.method != 'POST':
         print "SubmitActivity() - ERROR: Expected POST http request"
         return jsonify(result="error")
-    """
 
-    print "Request: ", request 
-    #print "jsonify: ", jsonify(**request.json)
-    print "json: ", request.json
-    print "form: ", request.form['activity']
-    print "json loads: ", json.loads( request.form['activity'] )
-    '''
-    print "get: ", request.args.get('activity')
-    print "get str: ", request.args.get('activity', type=str)
-    print "json loads: ", json.loads( request.form['activity'])
-    print "json dumps: ", json.dumps( request.form['activity'])
-    '''
     # Get the serialized activity JSON object
     # from the request
-
-    #activity = request.args.get('activity', type=str)
-    print "Raw activity: ", request.form['activity']
-
-    #activity = simplejson.loads(request.form)[0]
-    #activity = json.dumps(request.form['activity'] )
-    #activity = json.dumps(request.form['activity'] )
-    
     activity = json.loads( request.form['activity'] )
-
-    print "SubmitActivity() - Recieved activity:", activity
 
     if activity == None:
         print "SubmitActivity() - ERROR: Input activity is 'None'"
@@ -118,7 +95,6 @@ def addActivityToDatabase( activity ):
         print "addActivityToDatabase() - Error: Failed to connect to database"
         raise
 
-
     # Check if the 'activities' collection exists:
     if not 'activities' in db.collection_names():
         print "addActivityToDatabase() - ERROR: 'activities' collection doesn't exist"
@@ -131,7 +107,6 @@ def addActivityToDatabase( activity ):
         raise
 
     try:
-        #activities.insert( activity )
         activities.save( activity )
     except:
         print "addActivityToDatabase() - Error: Failed to add activity to database"
@@ -146,20 +121,8 @@ def getActivityList( num_activities=10 ):
     """
     db = connectToDatabase()
     activities = db['activities']
-    activity_list = activities.find().sort({_id:1}).limit( num_activities );
+    activity_list = activities.find().limit( num_activities );
     return activity_list
-
-
-
-def activity_list():
-    list = []
-    activity = { "name" : "bob", "borough" : "manhattan",
-                 "address" : "123 fake street", "type" : "bar",
-                 "map_link" : "bob.com" }
-    list.append( activity)
-    list.append( activity)
-    list.append( activity)
-    return list
 
 
 if __name__ == '__main__':
