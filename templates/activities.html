@@ -2,11 +2,43 @@
 
 {% extends "main_template.html" %}
 
+{% block head %}
+<script type="text/javascript" src="{{ url_for('static', filename='activities.js') }}" ></script>
+{% endblock %}
+
+
 
 <!-- Fill in the Middle template -->
 {% block middle %}
 
 <div>
+  
+  <form id="ActivityForm" >
+    <fieldset>
+
+      <legend>Add an activity:</legend>
+
+      <label  class="required" accesskey="f">Activity Name: </label>
+      <input type="text" id="activity_name" name="activity_name" tabindex="1" value="" title="activity name"><br>
+
+      <label  class="required" accesskey="l">Type:  </label>
+      <input type="text" id="type" name="type" tabindex="2" title="type"><br>
+      
+      <label accesskey="e">Borough: </label>
+      <input type="text" id="borough" name="borough" tabindex="3" title="borough"><br>
+
+      <label accesskey="e">Address: </label>
+      <input type="text" id="address" name="address" tabindex="3" title="address"><br>
+
+      <label  class="required" accesskey="e">Comment: </label>
+      <textarea  name="message"  id="msg"  rows="5" style="text-align: left" onKeyDown="limitText(this.form.msg,this.form.countdown,140);" 
+		 cols="30"  onKeyUp="limitText(this.form.msg,this.form.countdown,140);" > </textarea> 
+
+    </fieldset>
+  </form>
+
+  <button id="SubmitActivity" > Submit Activity </button>
+  
 
   <!-- Use a loop to render all the activities -->
   {% for activity in activity_list %}
@@ -29,8 +61,6 @@
     </tr>
     
   </table>
-
-  
 
   {% endfor %}
 
