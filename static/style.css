@@ -7,7 +7,8 @@ body {
        line-height: 180%;
        }
 
-html, body {  height: 95% }
+/*html, body {  height: auto; }*/
+html, body { height: 95% }
 
 .map {  
        width: 100%;
@@ -103,15 +104,25 @@ ul {
 
 
 .mainsection {
-              width: 900px;
-              margin-left: auto ;
-              margin-right: auto ;
-              border: 1px solid black;
-              border-bottom-width: 1px;
-              height: auto;
-              padding-bottom: 30px;
-              min-height: 90%;
-              }
+               /*display:inline-block;*/
+               width: 900px;
+               margin-left: auto ;
+               margin-right: auto ;
+               border: 1px solid black;
+               border-bottom-width: 1px;
+               height: auto;
+               /*padding-bottom: 30px;*/
+               min-height: 95%;
+               /*float: middle;*/
+               }
+
+.bar {  width: 100%;
+       content: ".";
+       display: block;
+       height:  0;
+       clear: both;
+       visibility:  hidden;
+       }
 
 .midcol
 {
@@ -149,15 +160,8 @@ ul {
 
             }
 
-/*
-.bar {  width: 100%;
-       content: ".";
-       display: block;
-       height:  0;
-       clear: both;
-       visibility:  hidden;
-       }
-*/
+
+
 
 img.center { 
              display: block;

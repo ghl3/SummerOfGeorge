@@ -13,42 +13,67 @@
 
 <div>
   
-  <form id="ActivityForm" >
-    <fieldset>
+  <button id="AddNewActivity" > Add New Activity </button>
 
-      <legend>Add an activity:</legend>
+  <div id="NewActivityDiv" >
 
-      <label class="required" accesskey="f">Activity Name: </label>
-      <input type="text" id="activity_name" name="activity_name" tabindex="1" value="" title="activity name"><br>
+    <button id="CancelNewActivity" > Cancel New Activity </button>
 
-      <label class="required" accesskey="l">Type:  </label>
-      <input type="text" id="type" name="type" tabindex="2" title="type"><br>
-      
-      <label accesskey="e">Borough: </label>
-      <input type="text" id="borough" name="borough" tabindex="3" title="borough"><br>
+    {% include 'activity_form.html' %}
+    <!--
+    <form id="ActivityForm" >
+      <fieldset>
+	<legend>Add an activity:</legend>
 
-      <label accesskey="e">Address: </label>
-      <input type="text" id="address" name="address" tabindex="3" title="address"><br>
+	<label class="required" accesskey="f">Activity Name: </label>
+	<input type="text" id="activity_name" name="activity_name" tabindex="1" value="" title="activity name"><br>
 
-      <label accesskey="e">Comment: </label>
-      <textarea  name="comment"  id="comment"  rows="5" style="text-align: left" onKeyDown="limitText(this.form.msg,this.form.countdown,140);" 
-		 cols="30"  onKeyUp="limitText(this.form.msg,this.form.countdown,140);" > </textarea> 
+	<label class="required" accesskey="l">Type:  </label>
+	<input type="text" id="type" name="type" tabindex="2" title="type"><br>
+	
+	<label accesskey="e">Borough: </label>
+	<input type="text" id="borough" name="borough" tabindex="3" title="borough"><br>
 
-    </fieldset>
-  </form>
+	<label accesskey="e">Address: </label>
+	<input type="text" id="address" name="address" tabindex="3" title="address"><br>
 
-  Number of Activities to Show:
-  <select id="num_activities">
-    <option value="10">10</option>
-    <option value="20">20</option>
-    <option value="50">50</option>
-    <option value="100">100</option>
-  </select>
+	<label accesskey="e">Comment: </label>
+	<textarea  name="comment"  id="comment"  rows="5" style="text-align: left" onKeyDown="limitText(this.form.msg,this.form.countdown,140);" 
+		   cols="30"  onKeyUp="limitText(this.form.msg,this.form.countdown,140);" > </textarea> 
+      </fieldset>
+    </form>
+    -->
+    <button id="SubmitActivity" > Submit Activity </button>
+    <br>
+
+  </div>
+
   <br>
 
-  <button id="SubmitActivity" > Submit Activity </button>
+    Number of Activities:
+    <select id="num_activities" style="margin-right: 10px;" >
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+    </select>
+
+    <br>
+
+    Borough: 
+    <form style="width: 100px;" >
+      <input type="text" name="Borough" value="" />
+    </form>
+
+    <br>
+
   <button id="RefreshActivityList" > Refresh </button>
 
+
+  <!-- Stop the "float:left" -->
+  <div style="clear:both;"></div>
+
+  <br>
   <div id="activity_list" style="margin-top: 20px;">
     <!-- Use the activity_list template -->
     {% include 'activity_list.html' %}

@@ -2,13 +2,52 @@
 
     {% for activity in activity_list %}
 
-    <table border="1" style="margin-bottom: 10px; width: 250px;">
+
+    <form class="ActivityList" id="Activity_{{ activity._id }}" style="margin-bottom: 10px;" >
+      <fieldset>
+	<label class="required" accesskey="f">Activity Name: </label>
+	<input type="text" name="activity_name" value="{{ activity.activity_name }}" tabindex="1" readonly="true" ><br>
+
+	<label class="required" accesskey="l">Type:  </label>
+	<input type="text" name="type" value="{{ activity.type }}" tabindex="2" readonly="true"><br>
+	
+	<label accesskey="e">Borough: </label>
+	<input type="text" name="borough" value="{{ activity.borough}}" tabindex="3" readonly="true"><br>
+
+	<label accesskey="e">Address: </label>
+	<input type="text" name="address" value="{{activity.address}}" tabindex="3" title="address" readonly="true"><br>
+
+	<label accesskey="e">Comment: </label>
+	<textarea  name="comment"  value="{{activity.comment}}" rows="5" readonly="true" 
+		   style="text-align: left" onKeyDown="limitText(this.form.msg,this.form.countdown,140);" 
+		   cols="30"  onKeyUp="limitText(this.form.msg,this.form.countdown,140);"  > </textarea> 
+
+	<input type="hidden" name="_id" value="{{ activity._id }}">
+	<button class="edit_activity_button" id="edit_button_{{activity._id}}" > Edit </button>
+	<button class="update_activity_button" id="update_button_{{activity._id}}" > Update </button>
+	<button class="cancel_activity_button" id="cancel_button_{{activity._id}}" > Update </button>
+       </fieldset>
+
+    </form>
+
+    {% endfor %}
+
+
+
+<!-- {#
+    <table border="1" style="margin-bottom: 10px; width: 250px;" id="table_{{ activity._id }}">
       <tr> <td> <b>Activity Name:</b> {{ activity.activity_name }} </td> </tr>
       <tr> <td> <b>Type:</b> {{ activity.type }} </td> </tr>
       <tr> <td> <b>Borough:</b> {{ activity.borough }} </td>  </tr>
       <tr> <td> <b>Address:</b> {{ activity.address }} </td> </tr>
-      <tr> <td> <b>Map:</b> {{ activity.map_link }} </td> </tr>
       <tr> <td> <b>Comment:</b> {{ activity.comment }} </td> </tr>
-    </table>
+      <tr> <td>
+	  <select> 
+	    <option value="ToDo">To Do</option> <option value="Done">Done</option>
+	  </select>
+	  <button class="edit_activity_botton" id="button_{{activity._id}}" > Edit </button>
+      </td> </tr>
 
-    {% endfor %}
+    </table>       
+#}
+-->

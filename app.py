@@ -12,6 +12,7 @@ from flask import request
 from flask import jsonify
 
 import pymongo
+import bson.objectid
 
 app = Flask(__name__)
 
@@ -120,7 +121,12 @@ def addActivityToDatabase( activity ):
         raise
 
     try:
-        activities.save( activity )
+        # Edit the activity's id
+        if "_id" in activity:
+            print "Saving object with id: %s" % activity["_id"]
+            activity["_id"] = bson.objectid.ObjectId( activity["_id"] )
+        saved_id = activities.save( activity )
+        print "Saved activity with id %s" % saved_id
     except:
         print "addActivityToDatabase() - Error: Failed to add activity to database"
         raise
