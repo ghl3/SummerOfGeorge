@@ -77,6 +77,38 @@ def SubmitActivity():
     return jsonify(success="success")
 
 
+@app.route('/DeleteActivity', methods=['GET', 'POST'])
+def DeleteActivity():
+    """ Take a http request and delete an activity from database
+
+    Identify it by its unique id
+    """
+
+    print "Deleting Activity"
+
+    if request.method != 'POST':
+        print "SubmitActivity() - ERROR: Expected POST http request"
+        return jsonify(success="error")
+
+    activity = json.loads( request.form['activity'] )
+
+    if activity == None:
+        print "SubmitActivity() - ERROR: Input activity is 'None'"
+        return jsonify(success="error")
+
+    try:
+        print "About to delete activity: ", activity
+        deleteActivityFromDatabase( activity )
+    except:
+        print "DeleteActivity() - Failed to delete activity from database"
+
+    print "DeleteActivity() - Success"
+
+    return jsonify(success="success")
+
+##################################
+
+
 def connectToDatabase():
     """ Get a handle on the db object
 
@@ -100,8 +132,6 @@ def addActivityToDatabase( activity ):
     """ Add an activity (dict) to the database
 
     """
-
-    print "addActivityToDatabase() - Adding Activity:", activity, activity.__class__.__name__
 
     try:
         db = connectToDatabase()
@@ -134,6 +164,47 @@ def addActivityToDatabase( activity ):
     return
 
 
+def deleteActivityFromDatabase( activity ):
+    """ Delete an activity (dict) from the database
+
+    Usually only requires an "_id" for the activity
+    """
+
+    try:
+        db = connectToDatabase()
+    except:
+        print "deleteActivityToDatabase() - Error: Failed to connect to database"
+        raise
+
+    # Check if the 'activities' collection exists:
+    if not 'activities' in db.collection_names():
+        print "deleteActivityToDatabase() - ERROR: 'activities' collection doesn't exist"
+        raise Exception("Collection Doesn't Exist in Database")
+
+    try:
+        activities = db['activities']
+    except:
+        print "deleteActivityToDatabase() - Failed to connect to 'activities' collection"
+        raise
+
+    if "_id" not in activity:
+        print "Error: Cannot delete activity, doesn't have a mongo '_id'"
+        raise Exception("Activity doesn't have '_id', can't delete")
+
+    try:
+        print "Removing activity from database: ", activity
+        if "_id" in activity:
+            print "Saving object with id: %s" % activity["_id"]
+            activity["_id"] = bson.objectid.ObjectId( activity["_id"] )
+        activities.remove( activity, safe=True )
+    except:
+        print "deleteActivityToDatabase() - Error: Failed to delete activity to database"
+        raise
+
+    return
+
+
+
 def getActivityList( num_activities=10 ):
     """ Get a list of activities (at most num_activities)
 
@@ -142,7 +213,6 @@ def getActivityList( num_activities=10 ):
     activities = db['activities']
     activity_list = activities.find().limit( num_activities ).sort("_id", -1);
     return activity_list
-
 
 
 if __name__ == '__main__':

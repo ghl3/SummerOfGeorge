@@ -135,6 +135,40 @@ $(document).ready(function() {
 });
 
 
+// DELETE ACTIVITY
+
+
+function DeleteActivityFromDatabase( activity_id ) {
+
+    // Create a javascript dict object out
+    // of that encoded dict
+    var ActivityJSON = {_id : activity_id};
+    ActivityJSON = JSON.stringify( ActivityJSON );
+    
+    // Create a call-back function
+    // for debugging and logging
+    function successCallback(data) {
+	if( data["success"]=="error" ) {
+	    console.log("ERROR: Failed to delete Activity");
+	}
+	else {
+	    console.log("Successfully deleted Activity");
+	    ClearActivityTable();
+	    RefreshActivityList();
+	}
+    }
+    
+    // Submit the AJAX query
+    $.post( "/DeleteActivity", {activity : ActivityJSON}, successCallback );
+    //$.getJSON( "/SubmitActivity", {activity : ActivityJSON}, successCallback );
+
+    console.log("DeleteActivity() - Submittted Activity AJAX request");
+
+    return false;
+
+}
+
+
 // BUILD/REFRESH ACTIVITIES
 
 function RefreshActivityList() {
@@ -157,6 +191,7 @@ function RefreshActivityList() {
 	    console.log("Successfully refreshed Activity List");
 	    $(".edit_activity_button").show();
 	    $(".update_activity_button").hide();
+	    $(".delete_activity_button").hide();
 	    console.log("Successfully Updated hidden attributes");
 	}
 	return false
@@ -177,6 +212,7 @@ $(document).ready(function() {
 
 
 // EDIT ACTIVITIES
+
 
 function EditActivity() {
     // Turn an html table into an editable FORM
@@ -206,7 +242,7 @@ function EditActivity() {
     // Hide the 'edit' button
     fieldset.children(".edit_activity_button").hide();
     fieldset.children(".update_activity_button").show();
-
+    fieldset.children(".delete_activity_button").show();
 
     return false;
 }
@@ -232,10 +268,36 @@ function UpdateActivity() {
     // Hide the 'edit' button
     fieldset.children(".edit_activity_button").show();
     fieldset.children(".update_activity_button").hide();
-    fieldset.children(".cancel_activity_button").hide();
+    fieldset.children(".delete_activity_button").hide();
 
     return false;
 
+}
+
+function DeleteActivity() {
+
+    var fieldset = $(this).parent();
+    var form = fieldset.parent();
+    
+    console.log( $(this).attr("id") );
+    console.log( form.attr("id") );
+
+    // Get the mongo id
+
+    var id_element = form.find("input[name='_id']");
+    var id_val = id_element.val(); //attr["value"];
+
+    console.log("Delete - Found id:");
+    console.log( id_element );
+    console.log( id_val );
+
+    DeleteActivityFromDatabase( id_val );
+
+    fieldset.children(".edit_activity_button").show();
+    fieldset.children(".update_activity_button").hide();
+    fieldset.children(".delete_activity_button").hide();
+
+    return false;
 }
 
 
@@ -246,7 +308,11 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     $('.update_activity_button').hide();
-    $('.cancel_activity_button').hide();
     $('.update_activity_button').live('click', UpdateActivity);
+});
+
+$(document).ready(function() {
+    $('.delete_activity_button').hide();
+    $('.delete_activity_button').live('click', DeleteActivity);
 });
 

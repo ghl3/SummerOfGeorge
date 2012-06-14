@@ -23,9 +23,11 @@
 		   cols="30"  onKeyUp="limitText(this.form.msg,this.form.countdown,140);"  > </textarea> 
 
 	<input type="hidden" name="_id" value="{{ activity._id }}">
-	<button class="edit_activity_button" id="edit_button_{{activity._id}}" > Edit </button>
+
+	<button class="edit_activity_button"   id="edit_button_{{activity._id}}" > Edit </button>
 	<button class="update_activity_button" id="update_button_{{activity._id}}" > Update </button>
-	<button class="cancel_activity_button" id="cancel_button_{{activity._id}}" > Update </button>
+	<button class="delete_activity_button" id="delete_button_{{activity._id}}" > Delete </button>
+	<!-- <button class="cancel_activity_button" id="cancel_button_{{activity._id}}" > Cancel </button> -->
        </fieldset>
 
     </form>
